@@ -1,0 +1,8 @@
+## 포트 변경
+server:
+  port: 8088
+## logging 옵션을 DEBUG 모드로 바꾼다. 대상은 org.springframework
+logging:
+  level:
+    org.springframework: DEBUG
+
