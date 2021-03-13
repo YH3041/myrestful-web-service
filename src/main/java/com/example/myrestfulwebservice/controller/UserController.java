@@ -26,7 +26,12 @@ public class UserController {
 
     @GetMapping("/users/{id}")
     public User getOneUser(@PathVariable Long id) {
-        return userService.findOne(id);
+        User user = userService.findOne(id);
+
+        if (user == null) {
+            throw new UserNotFoundException(String.format("id[%s] not found", id));
+        }
+        return user;
     }
 
     @PostMapping("/users")
@@ -41,5 +46,15 @@ public class UserController {
                 .toUri();
 
         return ResponseEntity.created(location).build();
+    }
+
+    @DeleteMapping("/users/{id}")
+    public void deleteUser(@PathVariable Long id) {
+        User user = userService.deleteById(id);
+
+        if (user == null) {
+            throw new UserNotFoundException(String.format("id[%s] not found", id));
+        }
+
     }
 }

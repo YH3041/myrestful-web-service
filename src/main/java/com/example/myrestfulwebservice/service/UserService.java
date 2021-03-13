@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 
 @Service
@@ -33,6 +34,7 @@ public class UserService {
         return repository;
     }
 
+
     public User save(User user) {
         if (user.getId() == null) {
             user.setId(++countUser);
@@ -40,4 +42,19 @@ public class UserService {
         repository.add(user);
         return user; // return User -> user 객체를 반환해줘야 확인 가능
     }
+
+
+    public User deleteById(Long id) {
+        Iterator<User> iterator = repository.iterator();
+
+        while (iterator.hasNext()) {
+            User user = iterator.next();
+            if (id == user.getId()) {
+                iterator.remove();
+                return user;
+            }
+        }
+        return null;
+    }
+
 }
